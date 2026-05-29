@@ -43,29 +43,28 @@ val Project.javaVersion
         mcVersionInt >= 11700   -> JavaVersion.VERSION_16
         else                    -> JavaVersion.VERSION_1_8
     }
-
 val Project.mixinJavaVersion get() = "JAVA_${javaVersion}"
 
 val Project.fullProjectVersionName: String get() = "v$fullProjectVersion"
-val Project.fullProjectVersion: String get() = getFullProjectVersion(modVersion)
+val Project.fullProjectVersion: String get() = getFullProjectVersion(mcVersion, modVersion)
 
-private fun getFullProjectVersion(modVersion: String): String {
+private fun getFullProjectVersion(mcVersion: String?, modVersion: String): String {
     val buildNumber     = System.getenv("GITHUB_RUN_NUMBER")
     val commitHash      = System.getenv("COMMIT_HASH")
     val isCi            = System.getenv("CI") == "true" || System.getenv("GITHUB_ACTIONS") == "true"
     val isRelease       = System.getenv("IS_THIS_RELEASE")?.toBoolean() == true
 
     return when {
-        isRelease -> "$modVersion-$commitHash-$buildNumber-release"
+        isRelease -> "$modVersion-mc$mcVersion-$commitHash-$buildNumber-release"
         isCi -> {
             if (buildNumber != null) {
-                "$modVersion-$commitHash-$buildNumber"
+                "$modVersion-mc$mcVersion-$commitHash-$buildNumber"
             } else {
-                "$modVersion-local"
+                "$modVersion-mc$mcVersion-local"
             }
         }
         else -> {
-            "$modVersion-local"
+            "$modVersion-mc$mcVersion-local"
         }
     }
 }
