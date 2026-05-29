@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "${mod_id}",
+	"version": "${mod_version}",
+	"name": "${mod_name}",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"EnderPhantomWing"
+	],
+	"contact": {
+		"homepage": "https://github.com/EnderPhantomWing/template-kotlin-mod",
+		"sources": "https://github.com/EnderPhantomWing/template-kotlin-mod"
+	},
+	"license": "${mod_license}",
+	"icon": "assets/template-kotlin-mod/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "net.ender.template_kotlin_mod.TemplateKotlinMod",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"template-kotlin-mod.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.14",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*",
+		"fabric-language-kotlin": "*"
+	}
+}
